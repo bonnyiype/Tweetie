@@ -1,0 +1,16 @@
+// Define a mixin named "createPostForm" that accepts a "userLoggedIn" parameter
+mixin createPostForm(userLoggedIn)
+    // Create a div element with the class "postFormContainer" to wrap the post form elements
+    .postFormContainer
+        // Add a div element with the class "userImageContainer" to hold the user's profile picture
+        .userImageContainer
+            // Display the user's profile picture with an img element
+            img(src=userLoggedIn.profilePic, alt="User's profile picture")
+        // Add a div element with the class "textareaContainer" to hold the textarea and buttons
+        .textareaContainer
+            // Add a textarea element with the id "postTextarea" for the user to write their post
+            textarea#postTextarea(placeholder="What's happening?")
+            // Add a div element with the class "buttonsContainer" to hold the submit button
+            .buttonsContainer
+                // Add a submit button with the id "submitPostButton" and set it to disabled by default
+                button#submitPostButton(disabled) Post
