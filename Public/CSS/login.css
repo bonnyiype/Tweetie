@@ -10,9 +10,9 @@ body {
   }
   
   .loginContainer {
-    padding: 40px;
+    padding: 50px;
     width: 90%;
-    max-width: 500px;
+    max-width: 600px;
     border-radius: 10px;
     background-color: #f8f8f8;
     text-align: center;
