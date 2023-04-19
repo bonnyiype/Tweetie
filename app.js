@@ -26,7 +26,7 @@ app.set("views", "views");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-// Set up session middleware
+// Set up session middleware. This middleware adds a session object to every incoming request
 app.use(session({
      secret: 'your-secret-key',
      resave: false,
