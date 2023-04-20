@@ -48,6 +48,9 @@ After starting the application, you can visit http://localhost:{port} in your we
 - login-layout.pug: Layout for login and registration pages.
 - main-layout.pug: The main layout for all pages in the application.
 
+![image](https://user-images.githubusercontent.com/105000155/233327268-4903020b-7739-42a6-bbf6-328f11a476fb.png)
+
+
 ## Code Explanation
 
 The application is built using the Express framework and follows a typical MVC architecture. The main entry point (app.js) sets up the Express application, connects to the MongoDB database, and includes the necessary routes.
