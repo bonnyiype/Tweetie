@@ -61,4 +61,4 @@ The User and Post schemas are defined in UserSchema.js and PostSchema.js, respec
 
 The front-end is built using Pug templates, which are rendered on the server and sent to the client as HTML. JavaScript files like home.js and common.js handle interactions and dynamic content on the front-end.
 
-Overall, the project demonstrates a simple implementation of a Twitter clone, allowing users to interact with the platform in a similar manner to the real Twitter website.
+Overall, the project demonstrates the model of a real Web App Twitter, allowing users to interact with the platform in a similar manner to the real Twitter website.
