@@ -132,8 +132,11 @@ function getPostIdFromElement(element) {
 
 // Create HTML structure for a post
 function createPostHtml(postData) {
+    console.log(postData)
+    // Get the user who posted the content
+        const postedBy = postData.postedBy;
     // Check if postData is null and alert the user
-    if (postData === null) return alert("post object is null");
+    if (postData  === null) return alert("post object is null");
 
     // Determine if the postData is a retweet
     const isRetweet = postData.retweetData !== undefined;
@@ -144,13 +147,17 @@ function createPostHtml(postData) {
 
     console.log(isRetweet);
 
-    // Get the user who posted the content
-    const postedBy = postData.postedBy;
-
     // Check if the user object is populated, otherwise log an error
     if (postedBy._id === undefined) {
         return console.log("User object not populated");
     }
+    
+    if (postData === null || postData.createdAt === undefined) {
+        console.warn("Invalid post data", postData);
+        return;
+      }
+    
+      const createdAt = postData.createdAt;
 
     // Create the display name from the user's first and last names
     const displayName = `${postedBy.firstName} ${postedBy.lastName}`;
@@ -250,3 +257,5 @@ function timeDifference(current, previous) {
         return Math.round(elapsed / msPerYear) + ' years ago';
     }
 }
+
+
