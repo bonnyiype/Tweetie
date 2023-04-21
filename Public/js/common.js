@@ -1,34 +1,33 @@
+
+const textBox = document.querySelector("#postTextarea");//postTextarea id from mixins.pug
+const submitButton = document.querySelector("#submitPostButton");
+
 // Handle keyup event on postTextarea
-document.querySelector("#postTextarea").addEventListener("keyup", (event) => {
+textBox.addEventListener("keyup", (event) => {
     const textbox = event.target;
     const value = textbox.value.trim();
-
-    const submitButton = document.querySelector("#submitPostButton");
-
     if (!submitButton) {
         alert("No submit button found");
         return;
     }
-
     // Enable or disable the submit button based on the textbox content
     submitButton.disabled = value === "";
 });
 
 
-// Handle click event on submitPostButton
-document.querySelector("#submitPostButton").addEventListener("click", async (event) => {
-    const button = event.target;
-    const textbox = document.querySelector("#postTextarea");
 
+// Handle click event on submitPostButton
+submitButton.addEventListener("click", async (event) => {
+    const button = event.target;
     const data = {
-        content: textbox.value
+        content: textBox.value
     };
 
     try {
         const response = await fetch("/api/posts", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json" 
             },
             body: JSON.stringify(data)
         });
@@ -39,8 +38,8 @@ document.querySelector("#submitPostButton").addEventListener("click", async (eve
 
         const postData = await response.json();
         const html = createPostHtml(postData);
-        document.querySelector(".postsContainer").insertAdjacentHTML("afterbegin", html);
-        textbox.value = "";
+        postsContainer.insertAdjacentHTML("afterbegin", html);
+        textBox.value = "";
         button.disabled = true;
 
     } catch (error) {
@@ -133,27 +132,38 @@ function getPostIdFromElement(element) {
 
 // Create HTML structure for a post
 function createPostHtml(postData) {
+    // Check if postData is null and alert the user
     if (postData === null) return alert("post object is null");
 
+    // Determine if the postData is a retweet
     const isRetweet = postData.retweetData !== undefined;
+    // Set retweetedBy to the username if it's a retweet, otherwise null
     const retweetedBy = isRetweet ? postData.postedBy.username : null;
+    // Update postData if it's a retweet
     postData = isRetweet ? postData.retweetData : postData;
 
     console.log(isRetweet);
 
+    // Get the user who posted the content
     const postedBy = postData.postedBy;
 
+    // Check if the user object is populated, otherwise log an error
     if (postedBy._id === undefined) {
         return console.log("User object not populated");
     }
 
+    // Create the display name from the user's first and last names
     const displayName = `${postedBy.firstName} ${postedBy.lastName}`;
+    // Calculate the time difference between the current time and the post creation time
     const timestamp = timeDifference(new Date(), new Date(postData.createdAt));
 
+    // Determine if the like button should be active based on if the user liked the post
     const likeButtonActiveClass = postData.likes.includes(userLoggedIn._id) ? "active" : "";
+    // Determine if the retweet button should be active based on if the user retweeted the post
     const retweetButtonActiveClass = postData.retweetUsers.includes(userLoggedIn._id) ? "active" : "";
 
     let retweetText = '';
+    // If it's a retweet, create the retweet text with a link to the user who retweeted it
     if (isRetweet) {
         retweetText = `<span>
                         <i class='fas fa-retweet'></i>
@@ -161,45 +171,57 @@ function createPostHtml(postData) {
                     </span>`;
     }
 
-    return `<div class='post' data-id='${postData._id}'>
-                <div class='postActionContainer'>
-                    ${retweetText}
+    // Return the complete HTML structure for the post
+    return `
+    <div class='post' data-id='${postData._id}'>
+        <!-- Post action container (for retweets) -->
+        <div class='postActionContainer'>
+            ${retweetText}
+        </div>
+        <!-- Main content container -->
+        <div class='mainContentContainer'>
+            <!-- User image container -->
+            <div class='userImageContainer'>
+                <img src='${postedBy.profilePic}'>
+            </div>
+            <!-- Post content container -->
+            <div class='postContentContainer'>
+                <!-- Header with display name, username, and date -->
+                <div class='header'>
+                    <a href='/profile/${postedBy.username}' class='displayName'>${displayName}</a>
+                    <span class='username'>@${postedBy.username}</span>
+                    <span class='date'>${timestamp}</span>
                 </div>
-                <div class='mainContentContainer'>
-                    <div class='userImageContainer'>
-                        <img src='${postedBy.profilePic}'>
+                <!-- Post body with content -->
+                <div class='postBody'>
+                    <span>${postData.content}</span>
+                </div>
+                <!-- Post footer with buttons -->
+                <div class='postFooter'>
+                    <!-- Comment button container -->
+                    <div class='postButtonContainer'>
+                        <button>
+                            <i class='far fa-comment'></i>
+                        </button>
                     </div>
-                    <div class='postContentContainer'>
-                        <div class='header'>
-                            <a href='/profile/${postedBy.username}' class='displayName'>${displayName}</a>
-                            <span class='username'>@${postedBy.username}</span>
-                            <span class='date'>${timestamp}</span>
-                        </div>
-                        <div class='postBody'>
-                            <span>${postData.content}</span>
-                        </div>
-                        <div class='postFooter'>
-                            <div class='postButtonContainer'>
-                                <button>
-                                    <i class='far fa-comment'></i>
-                                </button>
-                            </div>
-                            <div class='postButtonContainer green'>
-                                <button class='retweetButton ${retweetButtonActiveClass}'>
-                                    <i class='fas fa-retweet'></i>
-                                    <span>${postData.retweetUsers.length || ""}</span>
-                                </button>
-                            </div>
-                            <div class='postButtonContainer red'>
-                                <button class='likeButton ${likeButtonActiveClass}'>
-                                    <i class='far fa-heart'></i>
-                                    <span>${postData.likes.length || ""}</span>
-                                </button>
-                            </div>
-                        </div>
+                    <!-- Retweet button container -->
+                    <div class='postButtonContainer green'>
+                        <button class='retweetButton ${retweetButtonActiveClass}'>
+                            <i class='fas fa-retweet'></i>
+                            <span>${postData.retweetUsers.length || ""}</span>
+                        </button>
+                    </div>
+                    <!-- Like button container -->
+                    <div class='postButtonContainer red'>
+                        <button class='likeButton ${likeButtonActiveClass}'>
+                            <i class='far fa-heart'></i>
+                            <span>${postData.likes.length || ""}</span>
+                        </button>
                     </div>
                 </div>
-            </div>`;
+            </div>
+        </div>
+    </div>`;
 }
 
 // Calculate the time difference between two dates and return a human-readable string
@@ -228,5 +250,3 @@ function timeDifference(current, previous) {
         return Math.round(elapsed / msPerYear) + ' years ago';
     }
 }
-
-
