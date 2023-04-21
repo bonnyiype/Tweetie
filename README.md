@@ -1,5 +1,8 @@
 # 🌐 Tweetie
 
+## Connect, share, and engage with people from around the world.
+
+
 This project models social media workflow APP built with Node.js, Express, MongoDB, and Pug for templating. It allows users to register, login, post tweets, like, and retweet.
 
 
