@@ -1,6 +1,14 @@
 # Tweetie
 
-This project is a simple Twitter clone built with Node.js, Express, MongoDB, and Pug for templating. It allows users to register, login, post tweets, like, and retweet.
+This project models soical media workflow APP built with Node.js, Express, MongoDB, and Pug for templating. It allows users to register, login, post tweets, like, and retweet.
+
+![image](https://user-images.githubusercontent.com/105000155/233604721-03dbee93-7191-40a4-bcb9-9bf347c0c51f.png)
+
+
+
+
+
+
 
 ## Table of Contents
 
@@ -14,12 +22,12 @@ This project is a simple Twitter clone built with Node.js, Express, MongoDB, and
 1. Make sure you have Node.js and MongoDB installed on your local machine.
 2. Clone this repository to your local machine.
 3. Run `npm install` in the root directory of the project to install all the required dependencies.
-4. Set up your environment variables for the MongoDB connection string.
+4. Set up your environment variables for the MongoDB connection string (You will need an MongoDB account)
 5. Run `node app.js` to start the application.
 
 ## Usage
 
-After starting the application, you can visit http://localhost:{port} in your web browser to access the Twitter clone.
+After starting the application, you can visit http://localhost:{port} in your web browser to access the Tweetie.
 
 - Register a new account or login with an existing account.
 - Post tweets using the input field.
@@ -61,4 +69,4 @@ The User and Post schemas are defined in UserSchema.js and PostSchema.js, respec
 
 The front-end is built using Pug templates, which are rendered on the server and sent to the client as HTML. JavaScript files like home.js and common.js handle interactions and dynamic content on the front-end.
 
-Overall, the project demonstrates the model of a real Web App Twitter, allowing users to interact with the platform in a similar manner to the real Twitter website.
+Overall, the project demonstrates workflow of a socia media APP like Twitter, allowing users to interact with the platform in a similar manner to the real Twitter website.
