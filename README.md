@@ -1,6 +1,6 @@
 # 🌐 Tweetie
 
-This project models soical media workflow APP built with Node.js, Express, MongoDB, and Pug for templating. It allows users to register, login, post tweets, like, and retweet.
+This project models social media workflow APP built with Node.js, Express, MongoDB, and Pug for templating. It allows users to register, login, post tweets, like, and retweet.
 
 
 ![image](https://user-images.githubusercontent.com/105000155/233604721-03dbee93-7191-40a4-bcb9-9bf347c0c51f.png)
