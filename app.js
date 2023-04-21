@@ -9,7 +9,7 @@ const middleware = require('./middleware');
 
 // Set up the Express.js application
 const app = express();
-const port = 3006;
+const port = 3009;
 
 
 // Start the server and listen on the defined port number
@@ -55,9 +55,10 @@ app.use("/api/posts", postsApiRoute);
 app.get('/', middleware.requireLogin, (req, res, next) => {
      // Prepare payload object for rendering the home page
      let payload = {
-          pageTitle: "Tweetie",
+          pageTitle: "🌐 Tweetie",
           userLoggedIn: req.session.user,
           userLoggedInJs: JSON.stringify(req.session.user)
+          
      }
      // Render the home page with the payload data
      res.status(200).render("home", payload)
