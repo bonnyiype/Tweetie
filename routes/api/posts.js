@@ -10,9 +10,9 @@ router.use(bodyParser.json());
 // Get all posts endpoint
 router.get("/", (req, res) => {
     Post.find()
-    .populate("postedBy")
-    .populate("retweetData")
-    .sort({ "createdAt": -1 })
+    .populate("postedBy")//populate postedBy
+    .populate("retweetData")//populate retweetData
+    .sort({ "createdAt": -1 })//sort by date
     .then(async results => {
         results = await User.populate(results, { path: "retweetData.postedBy"});
         res.status(200).send(results);
